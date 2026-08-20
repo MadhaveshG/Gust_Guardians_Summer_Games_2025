@@ -19,4 +19,5 @@ By transitioning from simple beam-averaging to a comprehensive mathematical reco
 
 ## Project Evaluation and Related Context
 
-For broader context on the challenge and its outcomes, you can refer to the presentation titled "Evaluation of the Lidar-Assisted Control Summer Games 2025 and Update on LAC Open Source Tools" published on Zenodo. This presentation, published in June 2026 by authors from Flensburg University of Applied Sciences, Shanghai Jiao Tong University, and sowento, summarizes the results and lessons learned from the 2025 edition of the games, building on insights from the 2024 edition and presenting updates on LAC Open Source Tools.
+For broader context on the challenge and its outcomes, you can refer to the presentation titled "Evaluation of the Lidar-Assisted Control Summer Games 2025 and Update on LAC Open Source Tools" published on Zenodo "https://zenodo.org/records/20625931?preview_file=Schlipf2026b+-+Evaluation+of+the+Lidar-Assisted+Control+Summer+Games+2025+and+Update+on+LAC+Open+Source+Tools.pdf".
+This presentation, published in June 2026 by authors from Flensburg University of Applied Sciences, Shanghai Jiao Tong University, and sowento, summarizes the results and lessons learned from the 2025 edition of the games, building on insights from the 2024 edition and presenting updates on LAC Open Source Tools.
