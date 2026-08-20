@@ -1,0 +1,83 @@
+%% FINAL MICRO-OPTIMIZATION (3D Sweep)
+clearvars; close all; clc;
+
+% --- CONFIGURATION ---
+% Fine-tuning around your current best settings
+Omegas      = 0.28 : 0.02 : 0.34;       % Test: 0.22, 0.24, 0.26, 0.28
+Buffers     = 4.90 : 0.05 : 5.30;       % Test: 4.50, 4.55, 4.60, 4.65, 4.70
+Inductions  = -0.15 : 0.01 : -0.11;    % Test: -0.090, -0.085, -0.080, -0.075, -0.070
+
+% Standard Setup
+MyLDPfunction = @LDP_v7; % Use your best V8 code
+LDP.NumberOfBeams = 50; 
+LDP.AngleToCenterline = 15; 
+LDP.IndexGate = 1;
+tau = 2;
+
+% Seeds
+nSeed = 6; 
+Seed_vec = [1:nSeed]+18*100;
+SimulationFolderLAC = 'solis_lidar_data'; 
+
+% Storage
+BestCost = 1.0;
+BestParams = [0,0,0];
+
+fprintf('Starting 3D Micro-Optimization...\n');
+TotalRuns = length(Omegas) * length(Buffers) * length(Inductions);
+Counter = 0;
+
+for i_ind = 1:length(Inductions)
+    % We have to "hack" the induction factor since it's hardcoded in the function.
+    % Ideally, modify LDP_v8 to accept LDP.InductionFactor as an input.
+    % For now, we will pass it via the LDP struct and you MUST update LDP_v8 to use it!
+    CurrentInduction = Inductions(i_ind);
+    
+    for i_w = 1:length(Omegas)
+        for i_b = 1:length(Buffers)
+            Counter = Counter + 1;
+            
+            % Update Params
+            LDP.InductionFactor = CurrentInduction; % NEEDS UPDATE IN V8
+            LDP.omega_cutoff = Omegas(i_w);
+            LDP.T_buffer = Buffers(i_b);
+            
+            MAE_Seeds = [];
+            
+            for iSeed = 1:nSeed
+                Seed = Seed_vec(iSeed);
+                WindFileName = ['URef_18_Seed_',num2str(Seed,'%02d')];
+                SolisResultFile = fullfile(SimulationFolderLAC,[WindFileName,'_lidar_data_CircularCW.csv']);
+                SolisData = readtable(SolisResultFile);
+                
+                DT = 0.01; TMax = 660; time = [0:DT:TMax]'; t_start = 60;
+                
+                beamID = interp1(SolisData.time,SolisData.beamID,time,'previous','extrap');
+                isValid = interp1(SolisData.time,SolisData.isValid1,time,'previous','extrap');
+                lineOfSightWindSpeed = interp1(SolisData.time,SolisData.lineOfSightWindSpeed1,time,'previous','extrap');
+                
+                RewsFile = ['TurbulentWind\URef_18_Seed_',num2str(Seed,'%02d'),'.csv'];
+                RewsData = readtable(RewsFile);
+                Truth = interp1([RewsData.time;RewsData.time+600],[RewsData.REWS;RewsData.REWS],time+tau);
+                
+                [~,~,REWS_b] = MyLDPfunction(time,isValid,beamID,lineOfSightWindSpeed,DT,LDP);
+                
+                Error = Truth - REWS_b;
+                MAE_Seeds(iSeed) = mean(abs(detrend(Error(time>=t_start),'constant')));
+            end
+            
+            AvgCost = mean(MAE_Seeds);
+            
+            if AvgCost < BestCost
+                BestCost = AvgCost;
+                BestParams = [LDP.omega_cutoff, LDP.T_buffer, CurrentInduction];
+                fprintf('[NEW RECORD] Cost: %.6f | w:%.2f | Buf:%.2f | Ind:%.3f\n', ...
+                    BestCost, BestParams(1), BestParams(2), BestParams(3));
+            end
+            
+            if mod(Counter, 10) == 0
+                fprintf('Progress: %d / %d runs...\n', Counter, TotalRuns);
+            end
+        end
+    end
+end
