@@ -6,7 +6,7 @@ This repository contains the robust wind field reconstruction framework develope
 ## Core Methodology
 
 To overcome physical measurement limitations such as blade blockage and induction zones, this project moves beyond simple data filtering by implementing several advanced reconstruction techniques:
-*   A Robust Sine-Wave Fit is utilized to reconstruct the azimuthal line-of-sight pattern via $V_{los}(\theta)\approx A~cos(\theta)+B~sin(\theta)+C$.
+*   A Robust Sine-Wave Fit is utilized to reconstruct the azimuthal line-of-sight pattern via $V_{los}(\theta) \approx A \cos(\theta) + B \sin(\theta) + C$.
 *   The algorithm successfully estimates the full wind field even when rotating turbine blades occlude up to 20% of the Lidar scan.
 *   A calibrated -15% induction adjustment corrects for the upstream free-stream velocity being systematically higher than the actual rotor-plane velocity.
 *   A height bias correction compensates for the vertical offset of the Lidar, which is mounted 7.4 meters above the turbine hub.
