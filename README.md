@@ -19,6 +19,12 @@ By transitioning from simple beam-averaging to a comprehensive mathematical reco
 
 ## Project Evaluation and Related Context
 
-For broader context on the challenge and its outcomes, you can refer to the presentation titled "Evaluation of the Lidar-Assisted Control Summer Games 2025 and Update on LAC Open Source Tools" published on Zenodo https://zenodo.org/records/20625931?preview_file=Schlipf2026b+-+Evaluation+of+the+Lidar-Assisted+Control+Summer+Games+2025+and+Update+on+LAC+Open+Source+Tools.pdf.
+For broader context on the challenge and its outcomes, Presentation at the IEA Wind Task 52 Working Group on Lidar-Assisted Control, the Lidar-Assisted-Control (LAC) Summer Games in 2024, the 2025 edition [1] builds on the lessons learned that were presented at the Wind Energy Science Conference in June 2025 [2]. This presentations summarizes the results and lessons learned from the Lidar-Assisted Control Summer Games 2025 as well as the updates on LAC Open Source Tools.
 
-This presentation, published in June 2026 by authors from Flensburg University of Applied Sciences, Shanghai Jiao Tong University, and sowento, summarizes the results and lessons learned from the 2025 edition of the games, building on insights from the 2024 edition and presenting updates on LAC Open Source Tools.
+[1] Schlipf, D., Guo, F., van den Broek, M., & Weich, S. (2025). IEA Wind Task 52 LAC Summer Games 2025. Zenodo. https://doi.org/10.5281/zenodo.17541280.
+
+[2] Schlipf, D., Weich, S., Raach, S., & Guo, F. (2025). Evaluation and Lessons Learned from the Lidar-Assisted Control Summer Games 2024. Zenodo. https://doi.org/10.5281/zenodo.16105260.
+
+you can refer to the presentation titled "Evaluation of the Lidar-Assisted Control Summer Games 2025 and Update on LAC Open Source Tools" published on Zenodo https://zenodo.org/records/20625931?preview_file=Schlipf2026b+-+Evaluation+of+the+Lidar-Assisted+Control+Summer+Games+2025+and+Update+on+LAC+Open+Source+Tools.pdf. 
+
+This presentation, published in June 2026 by authors from Flensburg University of Applied Sciences, Shanghai Jiao Tong University, and sowento.
